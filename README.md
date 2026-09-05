@@ -1,36 +1,5 @@
 # SpeakEasy — Turn Words Into Voice
 
-College NLP project: a small **text-to-speech preprocessing pipeline**. Raw English text is tokenized with NLTK, cleaned, and normalized (numbers, abbreviations, units, symbols), then converted to an MP3 with gTTS.
-
-This repository contains only the **NLP + TTS pipeline**. There is no web UI, API, or database.
-
-## Pipeline
-
-```
-Raw Text
-  → NLTK sentence / word tokenization
-  → Text cleaning
-  → Abbreviation expansion
-  → Symbol / currency normalization
-  → Unit normalization
-  → Number-to-words conversion
-  → gTTS
-  → MP3 audio (generated_audio/)
-```
-
-## Setup
-
-```bash
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # macOS / Linux
-
-pip install -r requirements.txt
-```
-
-NLTK tokenizer models (`punkt`, `punkt_tab`) are downloaded automatically the first time you run the program.
-
-gTTS needs an internet connection to generate audio.
 
 ## Usage
 
