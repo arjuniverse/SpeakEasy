@@ -1,6 +1,6 @@
-import abbreviationsCsv from "../../../corpus/abbreviations.csv?raw";
-import unitsCsv from "../../../corpus/units.csv?raw";
-import pronunciationsCsv from "../../../corpus/pronunciations.csv?raw";
+import abbreviationsCsv from "../../corpus/abbreviations.csv?raw";
+import unitsCsv from "../../corpus/units.csv?raw";
+import pronunciationsCsv from "../../corpus/pronunciations.csv?raw";
 
 const ONES = [
   "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
