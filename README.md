@@ -2,9 +2,16 @@
 
 **SpeakEasy** is a text-to-speech application that preprocesses English text and converts it into natural-sounding speech.
 
+<<<<<<< HEAD
 The project combines an **NLP preprocessing pipeline** with a **web-based frontend**. Text is tokenized, cleaned, and normalized before being converted into speech.
 
 The preprocessing pipeline handles:
+=======
+The Python **NLP + TTS pipeline** lives in `nlp/` and `tts/`. The UI in `frontend/` talks to that pipeline through a small Vite bridge — it does not replace or rewrite the backend.
+ 
+ 
+## Pipeline
+>>>>>>> c96ab8c (Update SpeakEasy project)
 
 - Numbers
 - Abbreviations
@@ -227,6 +234,7 @@ python main.py
 pytest -q
 ```
 
+<<<<<<< HEAD
 ---
 
  ## 📚 Corpus
@@ -307,3 +315,29 @@ pytest -q
 
 You can copy the entire block directly into your repository as **`README.md`**.
 ```
+=======
+## Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173).
+
+`Generate Speech` calls the existing `process_text()` and `generate_speech()` modules. Keep the Vite app running so the Python bridge can reach NLTK and gTTS. If Python is unavailable, the UI still shows a live NLP preview and can fall back to the system voice.
+
+Flow: **Home → New Project → Audiobook → Add Chapter → Write → NLP Preview → Voice → Generate Speech → Listen → Compile → Export**
+
+## Project layout
+
+| Path | Role |
+|------|------|
+| `nlp/` | Tokenization, cleaning, numbers, abbreviations, pipeline |
+| `corpus/` | CSV dictionaries for abbreviations, units, pronunciations |
+| `tts/` | gTTS MP3 generation (separate from NLP) |
+| `generated_audio/` | Output MP3 files |
+| `frontend/` | Apple-style UI; Vite plugin calls existing NLP + TTS |
+| `tests/` | pytest coverage of each pipeline stage |
+>>>>>>> c96ab8c (Update SpeakEasy project)

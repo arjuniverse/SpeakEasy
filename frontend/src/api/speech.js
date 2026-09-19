@@ -16,12 +16,17 @@ export async function analyzeText(text) {
 }
 
 export async function generateAudio(processedText, language) {
-  const result = await speakWithBackend(processedText, language);
+  const result = await speakWithBackend(processedText, toGttsLanguage(language));
   return {
     blob: base64ToBlob(result.audioBase64, result.mime || "audio/mpeg"),
     path: result.path,
     engine: "python",
   };
+}
+
+function toGttsLanguage(language) {
+  const map = { en: "en", "en-uk": "en-uk", hi: "hi", es: "es", fr: "fr" };
+  return map[language] || "en";
 }
 
 export function speakInBrowser(text, voiceSettings) {
@@ -32,7 +37,7 @@ export function speakInBrowser(text, voiceSettings) {
     }
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = voiceSettings.language || "en-US";
+    utterance.lang = voiceSettings.locale || "en-US";
     utterance.rate = voiceSettings.speed || 1;
     utterance.pitch = voiceSettings.pitch || 1;
     utterance.volume = voiceSettings.volume ?? 1;

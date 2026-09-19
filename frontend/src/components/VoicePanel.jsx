@@ -23,7 +23,7 @@ export default function VoicePanel() {
   return (
     <div className="glass controls">
       <div className="kicker">Voice</div>
-      <h3>How it should sound</h3>
+      <h3>Language, voice, speed, pitch, volume</h3>
       <label>Language</label>
       <select
         value={state.voice.language}

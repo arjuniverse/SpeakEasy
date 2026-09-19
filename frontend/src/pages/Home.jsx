@@ -61,7 +61,7 @@ export default function Home() {
       <section className="section">
         <div className="grid grid-4">
           {PROJECT_TYPES.map((type) => (
-            <Link key={type.id} to="/projects/new" className="glass clickable type-tile">
+            <Link key={type.id} to={`/projects/new?type=${type.id}`} className="glass clickable type-tile">
               <div className="glyph">{type.glyph}</div>
               <div>
                 <h3>{type.label}</h3>

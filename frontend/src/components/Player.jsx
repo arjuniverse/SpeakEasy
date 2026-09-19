@@ -2,8 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useStore } from "../store";
 import { downloadBlob, loadAudio } from "../lib/audio";
 
+function stamp(seconds) {
+  const value = Math.max(0, Math.floor(seconds || 0));
+  return `${Math.floor(value / 60)}:${String(value % 60).padStart(2, "0")}`;
+}
+
 export default function Player() {
-  const { player, state } = useStore();
+  const { player, state, setVoice } = useStore();
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -49,7 +54,8 @@ export default function Player() {
       </div>
       <div className="transport">
         <button
-          className="icon-btn"
+          className="icon-btn play-btn"
+          disabled={!player.url}
           onClick={() => {
             const audio = audioRef.current;
             if (!audio) return;
@@ -76,13 +82,31 @@ export default function Player() {
             audio.currentTime = Number(event.target.value) * audio.duration;
           }}
         />
-        <span className="tiny muted">
-          {Math.floor(current / 60)}:{String(Math.floor(current % 60)).padStart(2, "0")}
-          {duration ? ` / ${Math.floor(duration / 60)}:${String(Math.floor(duration % 60)).padStart(2, "0")}` : ""}
-        </span>
+        <span className="tiny muted">{stamp(current)}{duration ? ` / ${stamp(duration)}` : ""}</span>
       </div>
-      <div className="transport">
-        <span className="tiny muted">{state.voice.speed.toFixed(2)}×</span>
+      <div className="transport player-extras">
+        <label className="tiny muted">
+          Vol
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.05"
+            value={state.voice.volume}
+            onChange={(event) => setVoice({ volume: Number(event.target.value) })}
+          />
+        </label>
+        <label className="tiny muted">
+          {state.voice.speed.toFixed(2)}×
+          <input
+            type="range"
+            min="0.7"
+            max="1.4"
+            step="0.05"
+            value={state.voice.speed}
+            onChange={(event) => setVoice({ speed: Number(event.target.value) })}
+          />
+        </label>
         <button className="btn ghost" onClick={downloadCurrent} disabled={!player.audioId}>
           Download
         </button>

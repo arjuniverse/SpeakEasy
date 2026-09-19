@@ -1,1 +1,13 @@
 node_modules/
+<<<<<<< HEAD
+=======
+dist/
+.vite/
+*.log
+.DS_Store
+__pycache__/
+.pytest_cache/
+venv/
+.venv/
+generated_audio/*.mp3
+>>>>>>> c96ab8c (Update SpeakEasy project)

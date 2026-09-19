@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PROJECT_TYPES, useStore } from "../store";
 
 export default function NewProject() {
   const { createProject } = useStore();
   const navigate = useNavigate();
-  const [type, setType] = useState("audiobook");
+  const [params] = useSearchParams();
+  const initial = PROJECT_TYPES.some((item) => item.id === params.get("type"))
+    ? params.get("type")
+    : "audiobook";
+  const [type, setType] = useState(initial);
   const [title, setTitle] = useState("");
 
   function create() {
@@ -23,9 +27,8 @@ export default function NewProject() {
         {PROJECT_TYPES.map((item) => (
           <button
             key={item.id}
-            className="glass clickable type-tile"
+            className={`glass clickable type-tile ${type === item.id ? "selected" : ""}`}
             onClick={() => setType(item.id)}
-            style={{ outline: type === item.id ? "2px solid var(--accent)" : "none" }}
           >
             <div className="glyph">{item.glyph}</div>
             <div>
